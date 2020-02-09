@@ -16,8 +16,8 @@ class Rocket(Sprite):
 		self.image = None
 		self.recalculate_image()
 		
-		self.damages = 50
-		self.explosion_radius = 70
+		self.damages = 55
+		self.explosion_radius = 90
 		
 		# noinspection PyTypeChecker
 		super().__init__(self.image, position)

@@ -79,11 +79,11 @@ class Worm(Sprite):
 	
 	def draw2(self, screen: pygame.Surface, is_active: bool):
 		super().draw(screen)
-		health = Worm.health_font.render(str(int(self.health)), True, pygame.Color("red") if self.team == Team.RED else pygame.Color("blue"))
+		health = Worm.health_font.render(str(int(self.health)), True, pygame.Color("red") if self.team == Team.RED else (0, 94, 255, 255))
 		# noinspection PyArgumentList
 		screen.blit(health, self.position + pygame.Vector2(-5, -40))
 		if is_active:
-			walking_credits = Worm.walking_credits_font.render(str(self.walking_credits), True, pygame.Color("red") if self.team == Team.RED else pygame.Color("blue"))
+			walking_credits = Worm.walking_credits_font.render(str(self.walking_credits), True, pygame.Color("red") if self.team == Team.RED else (0, 94, 255, 255))
 			# noinspection PyArgumentList
 			screen.blit(walking_credits, self.position + pygame.Vector2(0, -15))
 

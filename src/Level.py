@@ -48,6 +48,7 @@ class Level:
 		self.wind = None
 		self.wind_arrow = None
 		self.wind_font = pygame.font.Font("../assets/font.ttf", 40)
+		self.game_over_font = pygame.font.Font("../assets/font.ttf", 80)
 		self.wind_text = None
 		self.randomize_wind()
 		
@@ -81,7 +82,7 @@ class Level:
 			
 			if self.state == GameState.WF_WEAPON_ACTION_END:
 				if self.projectile.update(self.mask, self.wind):
-					pygame.draw.circle(self.mask_image, pygame.Color("black"), self.projectile.position, self.projectile.explosion_radius)
+					pygame.draw.circle(self.mask_image, (0, 0, 0, 0), self.projectile.position, self.projectile.explosion_radius)
 					self.recalculate_mask()
 					self.state = GameState.WF_ROUND_END
 					self.skip_next_round_end_check = True
@@ -127,7 +128,7 @@ class Level:
 					self.state = GameState.WF_PLAYER_ACTION
 					
 					if len(self.red_worms) + len(self.blue_worms) == 0:
-						self.draw()
+						self.win(None)
 						break
 					elif len(self.red_worms) == 0:
 						self.win(Team.BLUE)
@@ -163,17 +164,18 @@ class Level:
 		self.wind_arrow = pygame.transform.rotate(self.original_wind_arrow, angle)
 		self.wind_text = self.wind_font.render(str(int(self.wind.magnitude())), True, pygame.Color("yellow3"))
 	
-	def win(self, team: Team):
-		print(f"Team {'Blue' if team == Team.BLUE else 'Red'} won!")
+	def win(self, team: Team = None):
+		if team == Team.BLUE:
+			game_over_text = self.game_over_font.render("Team Blue won!", True, (0, 94, 255, 255))
+		elif team == Team.RED:
+			game_over_text = self.game_over_font.render("Team Red won!", True, pygame.Color("red"))
+		else:
+			game_over_text = self.game_over_font.render("Draw! Nobody is alive!", True, pygame.Color("white"))
+		center = game_over_text.get_rect().center
+		self.screen.blit(game_over_text, (800 - center[0], 450 - center[1]))
+		pygame.display.flip()
 		event = pygame.event.wait()
-		while event.type != pygame.MOUSEBUTTONDOWN:
-			event = pygame.event.wait()
-		self.running = False
-	
-	def draw(self):
-		print(f"Draw! Nobody is alive!")
-		event = pygame.event.wait()
-		while event.type != pygame.MOUSEBUTTONDOWN:
+		while event.type not in (pygame.MOUSEBUTTONDOWN, pygame.QUIT):
 			event = pygame.event.wait()
 		self.running = False
 	
@@ -185,10 +187,6 @@ class Level:
 		self.screen.blit(self.masked_foreground, (0, 0))
 	
 	def recalculate_mask(self):
-		self.mask = pygame.mask.from_threshold(self.mask_image, pygame.Color("white"), (127, 127, 127, 127))
+		self.mask = pygame.mask.from_surface(self.mask_image)
 		self.masked_foreground = self.foreground.copy()
-		for y in range(self.masked_foreground.get_height()):
-			for x in range(self.masked_foreground.get_width()):
-				color = self.masked_foreground.get_at((x, y))
-				color.a = self.mask.get_at((x, y)) * 255
-				self.masked_foreground.set_at((x, y), color)
+		self.masked_foreground.blit(self.mask_image, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
