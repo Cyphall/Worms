@@ -1,12 +1,12 @@
 import pygame
 
-from src.Sprite import Sprite
+from Sprite import Sprite
 
 
 class Grenade(Sprite):
 	def __init__(self, position: pygame.Vector2, velocity: pygame.Vector2):
 		# noinspection PyTypeChecker
-		super().__init__(pygame.image.load("../assets/grenade.png"), position)
+		super().__init__(pygame.image.load("assets/grenade.png"), position)
 		self.velocity = velocity
 		
 		self.mask = pygame.mask.from_surface(self.image)

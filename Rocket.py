@@ -2,12 +2,12 @@ import math
 
 import pygame
 
-from src.Sprite import Sprite
+from Sprite import Sprite
 
 
 class Rocket(Sprite):
 	def __init__(self, position: pygame.Vector2, velocity: pygame.Vector2):
-		self.original_image = pygame.image.load("../assets/rocket.png")
+		self.original_image = pygame.image.load("assets/rocket.png")
 		
 		# noinspection PyArgumentList
 		self.velocity = velocity

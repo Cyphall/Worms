@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
 
-from src.Enums import *
-from src.Sprite import Sprite
+from Enums import *
+from Sprite import Sprite
 
 
 class Worm(Sprite):
@@ -11,10 +11,10 @@ class Worm(Sprite):
 	
 	def __init__(self, team: Team, position: pygame.Vector2):
 		if Worm.health_font is None:
-			Worm.health_font = pygame.font.Font("../assets/font.ttf", 24)
+			Worm.health_font = pygame.font.Font("assets/font.ttf", 24)
 		if Worm.walking_credits_font is None:
-			Worm.walking_credits_font = pygame.font.Font("../assets/font.ttf", 12)
-		self.left_image = pygame.image.load("../assets/worm.png").convert_alpha()
+			Worm.walking_credits_font = pygame.font.Font("assets/font.ttf", 12)
+		self.left_image = pygame.image.load("assets/worm.png").convert_alpha()
 		self.right_image = pygame.transform.flip(self.left_image, True, False)
 		
 		super().__init__(self.left_image, position)

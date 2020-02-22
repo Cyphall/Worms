@@ -3,10 +3,10 @@ import random
 
 import pygame
 
-from src.Enums import *
-from src.Grenade import Grenade
-from src.Rocket import Rocket
-from src.Worm import Worm
+from Enums import *
+from Grenade import Grenade
+from Rocket import Rocket
+from Worm import Worm
 
 
 class Level:
@@ -26,10 +26,10 @@ class Level:
 		# noinspection PyArgumentList
 		self.red_worms.append(Worm(Team.RED, pygame.Vector2(900, 300)))
 		
-		self.background = pygame.image.load("../assets/background.png")
-		self.foreground = pygame.image.load("../assets/foreground.png").convert_alpha()
+		self.background = pygame.image.load("assets/background.png")
+		self.foreground = pygame.image.load("assets/foreground.png").convert_alpha()
 		
-		self.mask_image = pygame.image.load("../assets/mask.png").convert_alpha()
+		self.mask_image = pygame.image.load("assets/mask.png").convert_alpha()
 		self.mask = None
 		self.masked_foreground = None
 		self.recalculate_mask()
@@ -44,11 +44,11 @@ class Level:
 		
 		self.skip_next_round_end_check = False
 		
-		self.original_wind_arrow = pygame.image.load("../assets/wind_arrow.png").convert_alpha()
+		self.original_wind_arrow = pygame.image.load("assets/wind_arrow.png").convert_alpha()
 		self.wind = None
 		self.wind_arrow = None
-		self.wind_font = pygame.font.Font("../assets/font.ttf", 40)
-		self.game_over_font = pygame.font.Font("../assets/font.ttf", 80)
+		self.wind_font = pygame.font.Font("assets/font.ttf", 40)
+		self.game_over_font = pygame.font.Font("assets/font.ttf", 80)
 		self.wind_text = None
 		self.randomize_wind()
 		
