@@ -65,7 +65,9 @@ class Level:
 						# noinspection PyArgumentList
 						mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
 						direction = mouse_pos - self.active_worm.position
-						direction.scale_to_length(10)
+						direction /= 40
+						if direction.length() > 12:
+							direction.scale_to_length(12)
 						if event.button == pygame.BUTTON_LEFT:
 							# noinspection PyArgumentList
 							self.projectile = Rocket(pygame.Vector2(self.active_worm.position), direction)
@@ -81,7 +83,7 @@ class Level:
 				worm.update(self.mask, worm == self.active_worm, self.state)
 			
 			if self.state == GameState.WF_WEAPON_ACTION_END:
-				if self.projectile.update(self.mask, self.wind):
+				if self.projectile.update(self.mask, self.wind, self.screen):
 					pygame.draw.circle(self.mask_image, (0, 0, 0, 0), self.projectile.position, self.projectile.explosion_radius)
 					self.recalculate_mask()
 					self.state = GameState.WF_ROUND_END

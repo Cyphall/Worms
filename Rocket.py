@@ -28,8 +28,8 @@ class Rocket(Sprite):
 		self.image = pygame.transform.rotate(self.original_image, angle)
 		self.mask = pygame.mask.from_surface(self.image)
 	
-	def update(self, mask: pygame.Mask, wind: pygame.Vector2):
-		self.velocity.y += 0.15
+	def update(self, mask: pygame.Mask, wind: pygame.Vector2, screen: pygame.Surface):
+		self.velocity.y += 0.2
 		
 		self.velocity += (wind - self.velocity) / 100
 		
