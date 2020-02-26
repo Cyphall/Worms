@@ -74,14 +74,14 @@ class Grenade(Sprite):
 		CCW_to_CW = CW_vector - CCW_vector
 		normal = pygame.Vector2(-CCW_to_CW[1], CCW_to_CW[0]).normalize()
 		
-		Grenade.draw_debug(position, normal, (0, 0, 255), screen)
+		Grenade.draw_debug(position, normal, (0, 0, 255), screen, 20)
 		
 		return normal
 	
 	@staticmethod
-	def draw_debug(center: pygame.Vector2, vec: pygame.Vector2, color, screen: pygame.Surface):
+	def draw_debug(center: pygame.Vector2, vec: pygame.Vector2, color, screen: pygame.Surface, size: int = 1):
 		return
-		pygame.draw.line(screen, color, center, center + vec)
+		pygame.draw.line(screen, color, center, center + (vec * size))
 		
 		for event in pygame.event.get():
 			pass

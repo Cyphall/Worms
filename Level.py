@@ -158,7 +158,7 @@ class Level:
 	
 	def randomize_wind(self):
 		# noinspection PyArgumentList
-		self.wind = pygame.Vector2(random.uniform(-5, 5), random.uniform(-5, 5))
+		self.wind = pygame.Vector2(random.uniform(-7, 7), random.uniform(-5, 5))
 		if self.wind.x == 0 and self.wind.y == 0:
 			# noinspection PyArgumentList
 			self.wind = pygame.Vector2(0.001, 0.001)
